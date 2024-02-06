@@ -25,7 +25,13 @@
     --black-2: #252837;
     --black-3: #303346;
     --black-4: #686b7a;
-    
+
     --text-1: #fefefe;
     --text-2: #e1e1e2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
