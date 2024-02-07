@@ -72,6 +72,10 @@ nav {
     background-color: var(--black-3);
 }
 
+.text_nav {
+    text-align: start;
+}
+
 .icon {
     padding: 5px;
     margin-left: 20px;
