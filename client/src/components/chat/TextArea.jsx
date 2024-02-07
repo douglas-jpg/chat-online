@@ -1,14 +1,16 @@
 import MyMessage from './MyMessage';
-import OtherMessage from './OtherMessage';
-import Notification from './Notification';
+// import OtherMessage from './OtherMessage';
+// import Notification from './Notification';
+import { useEffect, useState } from 'react';
 
-const TextArea = () => {
+const TextArea = ({ dataUser, message }) => {
+    const [newMessages, setNewMessages] = useState([]);
+
     return (
         <div className='chat'>
-            <MyMessage />
-            <Notification />
-            <MyMessage />
-            <OtherMessage />
+            {newMessages.map((ms, i) => (
+                <MyMessage key={i} message={ms} time={'23:00'} />
+            ))}
         </div>
     );
 };

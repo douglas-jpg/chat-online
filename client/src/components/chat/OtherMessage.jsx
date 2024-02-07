@@ -1,9 +1,15 @@
-const OtherMessage = () => {
+const OtherMessage = ({ userName, message, time, color }) => {
+    const style = {
+        color: color,
+    };
+
     return (
         <div className='message other_message'>
-            <span className='user_name'>Douglas Lima</span> Lorem ipsum dolor
-            sit amet consectetur adipisicing elit. Hic, ullam.
-            <span className="time">22:00</span>
+            <span className='user_name' style={style}>
+                {userName}
+            </span>
+            {message}
+            <span className='time'>{time}</span>
         </div>
     );
 };

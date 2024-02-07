@@ -1,9 +1,8 @@
-const MyMessage = () => {
+const MyMessage = ({ message, time }) => {
     return (
         <div className='message my_message'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
-            consequatur?
-            <span className='time'>22:00</span>
+            {message}
+            <span className='time'>{time}</span>
         </div>
     );
 };
