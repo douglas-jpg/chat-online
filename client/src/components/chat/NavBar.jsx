@@ -1,12 +1,12 @@
 import { FaUser } from 'react-icons/fa';
 
-const NavBar = ({ userName, numberOnline }) => {
+const NavBar = ({ userName, numberUsers }) => {
     return (
         <nav>
             <FaUser className='icon' />
             <div>
                 <h1 className='text_nav'>{userName}</h1>
-                <span>{numberOnline} pessoas online</span>
+                <span>{numberUsers} pessoas online</span>
             </div>
         </nav>
     );

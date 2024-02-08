@@ -8,12 +8,18 @@ const io = require('socket.io')(server, {
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT;
+let connectedUsers = 0;
 
 io.on('connection', (socket) => {
     console.log('Usuario conectado ' + socket.id);
 
+    connectedUsers++;
+    io.emit('update_user_count', connectedUsers);
+
     socket.on('disconnect', () => {
         console.log('usuario desconectado ' + socket.id);
+        connectedUsers--;
+        io.emit('update_user_count', connectedUsers);
     });
 
     socket.on('set_user', (user) => {

@@ -2,17 +2,30 @@ import NavBar from './NavBar';
 import TextArea from './TextArea';
 import InputText from './InputText';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Chat = ({ userName, socket }) => {
     const [allMessage, setAllMessage] = useState([]);
+    const [numberUsers, setNumberUsers] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        socket.on('recive_message', (data) => {
-            setAllMessage((prevMessages) => [...prevMessages, data]);
-        });
+        if (socket) {
+            socket.on('recive_message', (data) => {
+                setAllMessage((prevMessages) => [...prevMessages, data]);
+            });
+            socket.on('update_user_count', (number) => {
+                setNumberUsers(number);
+            });
 
-        return () => socket.off('recive_message');
-    }, [socket]);
+            return () => {
+                socket.off('recive_message');
+                socket.off('update_user_count');
+            };
+        } else {
+            navigate('/');
+        }
+    }, [socket, navigate]);
 
     const handleSend = (message) => {
         socket.emit('message', message);
@@ -20,7 +33,7 @@ const Chat = ({ userName, socket }) => {
 
     return (
         <div>
-            <NavBar userName={userName} numberOnline={2} />
+            <NavBar userName={userName} numberUsers={numberUsers} />
             <TextArea messageList={allMessage} socket={socket} />
             <InputText sendMessage={handleSend} />
         </div>

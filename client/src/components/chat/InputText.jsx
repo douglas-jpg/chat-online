@@ -6,6 +6,7 @@ const InputText = ({ sendMessage }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        messageText.current.focus();
         const text = messageText.current.value;
         const date = getDate();
 
