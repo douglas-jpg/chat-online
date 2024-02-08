@@ -1,20 +1,53 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import io from 'socket.io-client';
 
 const Login = ({ onLogin }) => {
-    const [userName, setUserName] = useState('');
     const navigate = useNavigate();
+    const nameRef = useRef();
 
-    const handleSubmit = (e) => {
+    const colors = [
+        'aqua',
+        'blueviolet',
+        'brown',
+        'burlywood',
+        'cadetblue',
+        'chocolate',
+        'coral',
+        'cornflowerblue',
+        'crimson',
+        'darkblue',
+        'darkgoldenrod',
+        'darkmagenta',
+        'darkturquoise',
+        'deeppink',
+        'dodgerblue',
+        'firebrick',
+        'springgreen',
+    ];
+
+    const randomColor = () => {
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        return colors[randomIndex];
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (userName.trim()) {
-            onLogin(userName);
-            navigate('/chat');
-            return;
-        }
-        return;
+        const socket = await io.connect('http://localhost:8080');
+        const user = {
+            name: nameRef.current.value,
+            color: randomColor(),
+        };
+
+        if (!user.name.trim()) return;
+
+        socket.emit('set_user', user);
+
+        onLogin(user.name, socket);
+        navigate('/chat');
     };
+
     return (
         <form className='login_form' onSubmit={handleSubmit}>
             <h1>Conecte-se</h1>
@@ -24,7 +57,7 @@ const Login = ({ onLogin }) => {
                 placeholder='Digite o seu Nome'
                 autoFocus
                 required
-                onChange={(e) => setUserName(e.target.value)}
+                ref={nameRef}
             />
             <button className='btn_login' type='submit'>
                 Continuar

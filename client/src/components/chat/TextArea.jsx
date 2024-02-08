@@ -1,35 +1,44 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import MyMessage from './MyMessage';
 import OtherMessage from './OtherMessage';
 // import Notification from './Notification';
 
-const TextArea = ({ listMessages, idUser }) => {
+const TextArea = ({ messageList, socket }) => {
+    const scrollDown = useRef();
     useEffect(() => {
-        // rolar a tela para baixo
-    }, [listMessages]);
+        scrollDown.current.scrollIntoView({ behavior: 'smooth' });
+    }, [messageList]);
 
     return (
         <div className='chat'>
-            {listMessages &&
-                listMessages.map((ms) =>
-                    ms.id == idUser ? (
-                        <MyMessage
-                            key={ms.idMessage}
-                            message={ms.message}
-                            time={ms.time}
-                        />
-                    ) : (
-                        <OtherMessage
-                            key={ms.idMessage}
-                            userName={ms.name}
-                            message={ms.message}
-                            time={ms.time}
-                            color={ms.color}
-                        />
-                    )
-                )}
+            {messageList.map((message, index) =>
+                message.authorId === socket.id ? (
+                    <MyMessage
+                        key={index}
+                        message={message.text}
+                        time={message.time}
+                    />
+                ) : (
+                    <OtherMessage
+                        key={index}
+                        message={message.text}
+                        userName={message.author}
+                        time={message.time}
+                        color={message.color}
+                    />
+                )
+            )}
+            <div ref={scrollDown}></div>
         </div>
     );
 };
 
 export default TextArea;
+
+// {messageList.map((message, index) => (
+//     <OtherMessage
+//         key={index}
+//         userName={message.author}
+//         message={message.text}
+//     />
+// ))}

@@ -1,6 +1,6 @@
 const OtherMessage = ({ userName, message, time, color }) => {
     const style = {
-        color: color,
+        color: color || 'white',
     };
 
     return (

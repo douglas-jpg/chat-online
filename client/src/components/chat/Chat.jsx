@@ -1,27 +1,27 @@
 import NavBar from './NavBar';
 import TextArea from './TextArea';
 import InputText from './InputText';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const Chat = ({ dataUser }) => {
+const Chat = ({ userName, socket }) => {
     const [allMessage, setAllMessage] = useState([]);
 
+    useEffect(() => {
+        socket.on('recive_message', (data) => {
+            setAllMessage((prevMessages) => [...prevMessages, data]);
+        });
+
+        return () => socket.off('recive_message');
+    }, [socket]);
+
     const handleSend = (message) => {
-        setAllMessage((prevMessages) => [
-            ...prevMessages,
-            {
-                ...dataUser,
-                message: message,
-                time: `${new Date().getHours()}:${new Date().getMinutes()}`,
-                idMessage: Date.now(),
-            },
-        ]);
+        socket.emit('message', message);
     };
 
     return (
         <div>
-            <NavBar userName={dataUser.name} numberOnline={5} />
-            <TextArea listMessages={allMessage} idUser={dataUser.id} />
+            <NavBar userName={userName} numberOnline={2} />
+            <TextArea messageList={allMessage} socket={socket} />
             <InputText sendMessage={handleSend} />
         </div>
     );

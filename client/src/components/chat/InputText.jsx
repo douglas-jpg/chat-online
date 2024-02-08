@@ -2,16 +2,24 @@ import { useRef } from 'react';
 import { BsFillSendFill } from 'react-icons/bs';
 
 const InputText = ({ sendMessage }) => {
-    const text = useRef('');
+    const messageText = useRef();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const message = text.current.value;
-        if (message.trim()) {
-            sendMessage(text.current.value);
-            text.current.value = '';
-        }
-        return;
+        const text = messageText.current.value;
+        const date = getDate();
+
+        if (!text.trim()) return;
+
+        sendMessage({ text, date });
+        messageText.current.value = '';
+    };
+
+    const getDate = () => {
+        const hours = new Date().getHours().toString().padStart(2, '0');
+        const minutes = new Date().getMinutes().toString().padStart(2, '0');
+
+        return `${hours}:${minutes}`;
     };
 
     return (
@@ -20,7 +28,7 @@ const InputText = ({ sendMessage }) => {
                 className='text'
                 type='text'
                 placeholder='Digite a sua mensagem'
-                ref={text}
+                ref={messageText}
                 required
             />
             <button type='submit' className='btn_send'>
