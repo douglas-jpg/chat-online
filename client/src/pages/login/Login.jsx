@@ -34,9 +34,7 @@ const Login = ({ onLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const socket = await io.connect(
-            'https://chat-backend-9zd1.onrender.com'
-        );
+        const socket = await io.connect('http://localhost:8080');
         const user = {
             name: nameRef.current.value,
             color: randomColor(),

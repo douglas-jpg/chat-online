@@ -1,6 +1,6 @@
 import './App.css';
-import Login from './components/login/Login';
-import Chat from './components/chat/Chat';
+import Login from './pages/login/Login';
+import Chat from './pages/chat/Chat';
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 

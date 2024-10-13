@@ -1,6 +1,6 @@
-import NavBar from './NavBar';
-import TextArea from './TextArea';
-import InputText from './InputText';
+import NavBar from '../../components/NavBar/NavBar';
+import TextArea from '../../components/TextArea/TextArea';
+import InputText from '../../components/InputText/InputText';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 

@@ -3,21 +3,18 @@ require('dotenv').config();
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
-    cors: { origin: 'https://chat-online-fqwm.onrender.com' },
+    cors: { origin: 'http://localhost:5173' },
 });
 
 // eslint-disable-next-line no-undef
-const port = process.env.PORT;
+const PORT = process.env.PORT;
 let connectedUsers = 0;
 
 io.on('connection', (socket) => {
-    console.log('Usuario conectado ' + socket.id);
-
     connectedUsers++;
     io.emit('update_user_count', connectedUsers);
 
     socket.on('disconnect', () => {
-        console.log('usuario desconectado ' + socket.id);
         connectedUsers--;
         io.emit('update_user_count', connectedUsers);
     });
@@ -38,4 +35,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(port, () => console.log('Server rodando'));
+server.listen(PORT, () =>
+    console.log(`Server is running on: http://localhost:${PORT}`)
+);

@@ -4,7 +4,7 @@
     "description": "server do chat online",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon index.js ",
+        "dev": "nodemon src/index.js ",
         "start": "nodemon index.jsx"
     },
     "author": "douglas <douglaslima13bezerr@gmail.com>",
