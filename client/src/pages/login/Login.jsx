@@ -34,7 +34,7 @@ const Login = ({ onLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const socket = await io.connect('http://localhost:8080');
+        const socket = await io.connect('wss://chat-online-backen.onrender.com');
         const user = {
             name: nameRef.current.value,
             color: randomColor(),
