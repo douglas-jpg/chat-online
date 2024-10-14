@@ -13,8 +13,9 @@
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-* Você instalou a versão mais recente de `<node.js / npm>`
-* Você tem uma máquina `<Windows>`. Indique qual sistema operacional é compatível / não compatível.
+* Você instalou a versão mais recente do [Node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/).
+* Você tem uma máquina com **Windows**, **Linux** ou **MacOS**.
+* Você leu a documentação oficial do [React](https://reactjs.org/docs/getting-started.html) e do [Socket.io](https://socket.io).
 
 ## 🚀 Instalando chat-online
 
